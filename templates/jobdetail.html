@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Detail</title>
+</head>
+<body>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    <header>
+        <h1>
+            Job Profile
+        </h1>
+    </header>
+    <main>
+        {% if jobs %}
+        <h3>Recruiter Name : {{jobs[4]}}</h3>
+        <p>Job Position : {{jobs[0]}}</p>
+        <p>Description : {{jobs[1]}}</p>
+        <p>Location: {{jobs[2]}}</p>
+        <p>Salary : {{jobs[3]}}</p>
+        {% endif %}
+    </main>
+    <a href="/dashboard">
+        <Button>dashboard</Button>
+    </a>
+</body>
+</html>

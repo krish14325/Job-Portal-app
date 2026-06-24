@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Job</title>
+</head>
+<body>
+    <header>
+        <h1>Create Job To Hire Employees!</h1>
+    </header>
+    <main>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <form method="POST">
+            <label>Recruiter's Id</label>
+            <input type="text" name="id" placeholder="Id">
+            <br>
+            <br>
+            <label>Job Title</label>
+            <input type="text" name="title" placeholder="Job Title" required>
+            <br>
+            <br>
+            <label>Description</label>
+            <textarea name="Description" placeholder="Description" required></textarea>
+            <br>
+            <br>
+            <label>Location</label>
+            <input type="text" name="location" placeholder="location" required>
+            <br>
+            <br>
+            <label>Salary</label>
+            <input type="text" name="salary" placeholder="Salary" required>
+            <br>
+            <br>
+            <button type="submit">Create</button>
+        </form>
+    </main>
+</body>
+</html>
