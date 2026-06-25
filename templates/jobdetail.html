@@ -27,6 +27,7 @@
         <p>Salary : {{jobs[3]}}</p>
         {% endif %}
         <form method="POST">
+            <input type="hidden" name="job_id" value="{{jobs[5]}}">
             <button type="submit">Apply</button>
         </form>
         <br>

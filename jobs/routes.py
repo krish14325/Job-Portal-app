@@ -39,11 +39,15 @@ def alljobs():
         return render_template("alljobs.html" , job=found)
 @jobs.route("/jobdetails",methods=["GET","POST"])
 def jobdetails():
+    if "user_id" not in session:
+        return redirect(url_for("auth.login"))
+    user = session["user_id"]
+    role = session["role"]
     if request.method=="GET":
         jobid = request.args.get("jobid")
         title = request.args.get("title")
         query = """
-                SELECT JOBS.TITLE , JOBS.DESCRIPTION , JOBS.LOCATION , JOBS.SALARY , USERS.USERNAME
+                SELECT JOBS.TITLE , JOBS.DESCRIPTION , JOBS.LOCATION , JOBS.SALARY , USERS.USERNAME , JOB_ID
                 FROM JOBS
                 JOIN USERS
                 ON JOBS.RECRUITER_ID = USERS.USER_ID
@@ -57,10 +61,47 @@ def jobdetails():
             flash("Job Does Not Exist","Error")
             return render_template("jobdetail.html" , jobs=found)
         return render_template("jobdetail.html",jobs=found)
-    
-    
+    if role!= "candidate":
+        flash("Only Candidates Can Apply", "Error")
+        return redirect(url_for("jobs.alljobs"))
+    job_id = request.form["job_id"]
+    query = """
+            SELECT *
+            FROM APPLICATIONS
+            WHERE JOB_ID = %s AND CANDIDATE_ID = %s
+            """
+    values = (job_id,user)
+    cur = conn.cursor()
+    cur.execute(query,values)
+    application = cur.fetchone()
+    if application:
+        flash("You Have Already Applied For This Job","Error")
+        return redirect(url_for("jobs.alljobs"))
+    query = """
+            SELECT RESUME
+            FROM USERS
+            WHERE USER_ID = %s
+            """
+    values = (user,)
+    cur = conn.cursor()
+    cur.execute(query,values)
+    resume = cur.fetchone()
+    if not resume or not resume[0]:
+        flash("Please Upload Your Resume","Error")
+        return render_template("jobdetail.html", jobs=None)
+    query = """
+            INSERT INTO APPLICATIONS
+            (JOB_ID , CANDIDATE_ID , RESUME)
+            VALUES
+            (%s,%s,%s)
+            """
+    values = ( job_id , user , resume[0])
+    cur = conn.cursor()
+    cur.execute(query , values)
+    conn.commit()
+    flash("Applied Sucessfully","Success")
+    return redirect(url_for("jobs.alljobs"))
 
-        
 @jobs.route("/createjobs" , methods=["GET","POST"])
 def createjob():
     if "user_id" not in session:
