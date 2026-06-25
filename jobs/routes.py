@@ -1,5 +1,7 @@
 from flask import *
 from db import conn 
+from werkzeug.utils import secure_filename
+import os
 jobs = Blueprint("jobs" , __name__)
 
 @jobs.route("/recruiter" , methods=["GET","POST"])
@@ -35,25 +37,28 @@ def alljobs():
             flash("No Jobs Created","Error")
             return render_template("alljobs.html")
         return render_template("alljobs.html" , job=found)
-    jobid = request.form["jobid"]
-    title = request.form["title"]
-    print(jobid)
-    print(title)
-    query = """
-            SELECT JOBS.TITLE , JOBS.DESCRIPTION , JOBS.LOCATION , JOBS.SALARY , USERS.USERNAME
-            FROM JOBS
-            JOIN USERS
-            ON JOBS.RECRUITER_ID = USERS.USER_ID
-            WHERE USER_ID = %s AND TITLE = %s
-            """
-    values = (jobid, title)
-    cur = conn.cursor()
-    cur.execute(query , values)
-    found2 = cur.fetchone()
-    if not found2:
-        flash("Job Does Not Exist","Error")
-        return render_template("jobdetail.html" , jobs=found2)
-    return render_template("jobdetail.html",jobs=found2)
+@jobs.route("/jobdetails",methods=["GET","POST"])
+def jobdetails():
+    if request.method=="GET":
+        jobid = request.args.get("jobid")
+        title = request.args.get("title")
+        query = """
+                SELECT JOBS.TITLE , JOBS.DESCRIPTION , JOBS.LOCATION , JOBS.SALARY , USERS.USERNAME
+                FROM JOBS
+                JOIN USERS
+                ON JOBS.RECRUITER_ID = USERS.USER_ID
+                WHERE USER_ID = %s AND TITLE = %s
+                """
+        values = (jobid, title)
+        cur = conn.cursor()
+        cur.execute(query , values)
+        found = cur.fetchone()
+        if not found:
+            flash("Job Does Not Exist","Error")
+            return render_template("jobdetail.html" , jobs=found)
+        return render_template("jobdetail.html",jobs=found)
+    
+    
 
         
 @jobs.route("/createjobs" , methods=["GET","POST"])
@@ -121,3 +126,31 @@ def logout():
     flash("Logout Sucessfully","Success")
     return redirect(url_for("auth.login"))
     
+@jobs.route("/uploadresume", methods=["GET", "POST"])
+def uploadresume():
+    if "user_id" not in session:
+        return redirect(url_for("auth.login"))
+    user_id = session["user_id"]
+    if request.method == "POST":
+        resume = request.files["resume"]
+        if resume.filename == "":
+            flash("No File Selected", "Error")
+            return redirect(url_for("jobs.uploadresume"))
+        filename = f"{user_id}_{secure_filename(resume.filename)}"
+        filepath = os.path.join(
+            current_app.config["UPLOAD_FOLDER"],
+            filename
+        )
+        resume.save(filepath)
+        query = """
+        UPDATE USERS
+        SET RESUME = %s
+        WHERE USER_ID = %s
+        """
+        values = (filename, user_id)
+        cur = conn.cursor()
+        cur.execute(query, values)
+        conn.commit()
+        flash("Resume Uploaded Successfully", "Success")
+        return redirect(url_for("dashboard"))
+    return render_template("uploadresume.html")

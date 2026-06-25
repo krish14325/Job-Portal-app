@@ -14,7 +14,7 @@
             <div>
                 <p>{{i[2]}}</p>
                 <br>
-                <form action="/alljobs" method="POST">
+                <form action="/jobdetails" method="GET">
                     <input type="hidden" name="jobid" value="{{i[1]}}">
                     <input type="hidden" name="title" value="{{i[2]}}">
                 <button type="submit">View Details</button>

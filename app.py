@@ -1,7 +1,13 @@
 from flask import *
 from werkzeug.security import generate_password_hash
 from db import conn
+import os
+
 app = Flask(__name__)
+
+UPLOAD_FOLDER = "uploads"
+app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
+
 app.secret_key="krishna123"
 
 from auth.routes import auth
