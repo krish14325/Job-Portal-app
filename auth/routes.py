@@ -70,3 +70,11 @@ def login():
         flash("User Not Found","Error")
         return render_template("login.html")
     return render_template("login.html")
+
+@auth.route("/logout", methods=["POST"])
+def logout():
+    if "user_id" not in session:
+        return redirect(url_for("auth.login"))
+    session.clear()
+    flash("Logout Sucessfully","Success")
+    return redirect(url_for("auth.login"))
