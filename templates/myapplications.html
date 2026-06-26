@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Applications</title>
+</head>
+<body>
+    <header>
+        <h1> My Applications</h1>
+    </header>
+    <main>
+        {% if applications %}
+            {% for app in applications%}
+                <p>Position : {{app[0]}}</p>
+                <p>Location : {{app[1]}}</p>
+                <p>Salary : {{app[2]}}</p>
+                <p>Status : {{app[3]}}</p>
+                <hr>
+            {% endfor %}
+        {% endif %}
+        <a href="/dashboard">
+            <button type="button">Dashboard</button>
+        </a>
+    </main>
+</body>
+</html>

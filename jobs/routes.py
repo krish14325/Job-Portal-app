@@ -259,3 +259,25 @@ def deletejob():
         return redirect(url_for("jobs.viewjobs"))
     flash("Job Not Found","Error")
     return redirect(url_for("jobs.viewjobs"))
+
+@jobs.route("/myapplications",methods=["GET"])
+def myapplications():
+    if "user_id" not in session:
+        return redirect(url_for("auth.login"))
+    user = session["user_id"]
+    query = """
+            SELECT JOBS.TITLE , JOBS.LOCATION , JOBS.SALARY , STATUS
+            FROM APPLICATIONS
+            JOIN JOBS
+            ON APPLICATIONS.JOB_ID = JOBS.JOB_ID
+            WHERE CANDIDATE_ID = %s
+            """
+    values = (user,)
+    cur = conn.cursor()
+    cur.execute(query,values)
+    found = cur.fetchall()
+    if not found:
+        flash("No Jobs Applied","Error")
+        return render_template("myapplications.html",applications=None)
+    return render_template("myapplications.html",applications=found)
+    
