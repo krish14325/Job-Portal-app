@@ -14,7 +14,13 @@
             <div>
                 <p>{{i[2]}}</p>
             </div>
+            <form action="{{ url_for("jobs.deletejob") }}" method="POST">
+                <input type="hidden" value="{{i[0]}}" name="job_id">
+                <button type="submit">Delete Job</button>
+            </form>
+            <hr>
         {% endfor %}
+        <br>
         <a href="/dashboard">
             <button type="submit">Dashboard</button>
         </a>

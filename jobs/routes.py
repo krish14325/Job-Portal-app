@@ -228,3 +228,34 @@ def uploadfilename(filename):
         current_app.config["UPLOAD_FOLDER"],
         filename
     )
+    
+@jobs.route("/deletejob",methods=["POST"])
+def deletejob():
+    if "user_id" not in session:
+        return redirect(url_for("auth.login"))
+    user = session["user_id"]
+    job_id = request.form["job_id"]
+    print(job_id)
+    query = """
+                SELECT * 
+                FROM JOBS
+                WHERE RECRUITER_ID = %s AND JOB_ID = %s
+                """
+    values = (user , job_id)
+    cur = conn.cursor()
+    cur.execute(query,values)
+    found = cur.fetchone()
+    if found:
+        query = """
+                    DELETE 
+                    FROM JOBS 
+                    WHERE RECRUITER_ID = %s AND JOB_ID = %s
+                    """
+        values = (user , job_id)
+        cur = conn.cursor()
+        cur.execute(query,values)
+        conn.commit()
+        flash("Job Removed Sucessfully","Success")
+        return redirect(url_for("jobs.viewjobs"))
+    flash("Job Not Found","Error")
+    return redirect(url_for("jobs.viewjobs"))
