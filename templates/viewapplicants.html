@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Applicants</title>
+</head>
+<body>
+    <header>
+        <h1>All Applicants</h1>
+    </header>
+    <main>
+        {% if application %}
+            {% for app in application %}
+                <div>
+                    <h2>Position : {{app[0]}}</h2>
+                    <p>Candidate Name : {{app[1]}}</p>
+                    <p>Email : {{app[2]}}</p>
+                    <p>Applied Date : {{app[3]}}</p>
+                    <a href="/uploads/{{app[4]}}" target="_blank">
+                        <button type="button">View Resume</button>
+                    </a>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </main>
+</body>
+</html>

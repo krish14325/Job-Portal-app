@@ -2,6 +2,7 @@ from flask import *
 from db import conn 
 from werkzeug.utils import secure_filename
 import os
+from flask import send_from_directory
 jobs = Blueprint("jobs" , __name__)
 
 @jobs.route("/recruiter" , methods=["GET","POST"])
@@ -195,3 +196,35 @@ def uploadresume():
         flash("Resume Uploaded Successfully", "Success")
         return redirect(url_for("dashboard"))
     return render_template("uploadresume.html")
+
+@jobs.route("/viewapplicants", methods=["GET","POST"])
+def viewapplicants():
+    if "user_id" not in session:
+        return redirect(url_for("auth.login"))
+    user = session["user_id"]
+    
+    if request.method == "GET":
+        query = """
+                SELECT JOBS.TITLE , USERS.USERNAME , USERS.EMAIL , APPLICATIONS.APPLIED_AT , APPLICATIONS.RESUME
+                FROM APPLICATIONS
+                JOIN JOBS
+                ON APPLICATIONS.JOB_ID = JOBS.JOB_ID
+                JOIN USERS
+                ON APPLICATIONS.CANDIDATE_ID = USERS.USER_ID
+                WHERE RECRUITER_ID = %s
+                """
+        values = (user , )
+        cur = conn.cursor()
+        cur.execute(query, values)
+        found = cur.fetchall()
+        if found:
+            return render_template("viewapplicants.html", application=found)
+        flash("No Applicants Applied Yet","Error")
+        return render_template("viewapplicants.html",application=None)
+    
+@jobs.route("/uploads/<filename>")
+def uploadfilename(filename):
+    return send_from_directory(
+        current_app.config["UPLOAD_FOLDER"],
+        filename
+    )
