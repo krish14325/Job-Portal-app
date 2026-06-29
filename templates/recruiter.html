@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     {% with messages = get_flashed_messages(with_categories=true) %}
@@ -14,9 +15,34 @@
             {% endif %}
     {% endwith %}
     <header>
-    <h1>Hello Recruiter</h1>
+    <h2>WorkIntern</h2>
+    <h1>Hello {{username}}</h1>
     </header>
     <main>
+        <div>
+        <a href="/postedjobs">
+            <p>Total Jobs Posted</p>
+                <p>{{total}}</p>
+        </a>
+        </div>
+        <div>
+        <a href = "/viewapplicants">
+            <p>Total Applicants</p>
+                <p>{{applicants}}</p>
+        </a>
+        </div>
+        <div>
+        <a href="/accepted">
+            <p>Resume Accepted</p>
+                <p>{{accepted}}</p>
+        </a>
+        </div>
+        <div>
+        <a href="/rejectedresume">
+            <p>Resume Rejected</p>
+                <p>{{rejected}}</p>
+        </a>
+        </div>
         <form action="/recruiter" method="POST">
             <button name="create">Create Job</button>
         </form>

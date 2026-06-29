@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>All Applicants</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
             {% with messages = get_flashed_messages(with_categories=true) %}
@@ -27,9 +28,28 @@
                     <a href="/uploads/{{app[4]}}" target="_blank">
                         <button type="button">View Resume</button>
                     </a>
+                    <br>
+                    <br>
+                    <form action="/status" method="POST">
+                        <input type="hidden" value="accepted" name="accepted">
+                        <input type="hidden" value="{{app[2]}}" name="email">
+                        <input type="hidden" value="{{app[5]}}" name="application_id">
+                        <button type="submit">Accept</button>
+                    </form>
+                    <br>
+                    <form action="/status" method="POST">
+                        <input type="hidden" value="{{app[2]}}" name="email">
+                        <input type="hidden" value="rejected" name="rejected">
+                        <input type="hidden" value="{{app[5]}}" name="application_id">
+                        <button type="submit">Reject</button>
+                    </form>
                 </div>
+                <hr>
             {% endfor %}
         {% endif %}
+        <a href="/dashboard">
+            <button type="submit">Back</button>
+        </a>
     </main>
 </body>
 </html>

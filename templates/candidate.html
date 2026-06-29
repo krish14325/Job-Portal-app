@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     {% with messages = get_flashed_messages(with_categories=true) %}
@@ -14,9 +15,51 @@
             {% endif %}
         {% endwith %}
     <header>
-    <h1>Hello Candidate</h1>
+    <h2>WorkIntern</h2>
+    <h1>Hello {{username}}</h1>
     </header>
     <main>
+        <div>
+        <a href="/myapplications">
+            <p> Total Application </p>
+                <p>{{total}}</p>
+        </a>
+        </div>
+        <div>
+        <a href="/shortlisted">
+            <p> Application Accepted </p>
+                <p>{{accepted}}</p>
+        </a>
+        </div>
+        <div>
+        <a href="/rejected">
+            <p> Application rejected </p>
+                <p>{{rejected}}</p>
+        </a>
+        </div>
+        
+        {% if job %}
+            <div>
+            {% for i in job %}
+                <hr>
+                <h2>Title : {{i[2]}}</h2>
+                <p>Description : {{i[3]}}</p>
+                <p>Location : {{i[4]}}</p>
+                <p>Salary : {{i[5]}}</p>
+                <form action="/jobdetails" method="GET">
+                    <input type="hidden" name="jobid" value="{{i[1]}}">
+                    <input type="hidden" name="title" value="{{i[2]}}">
+                <button type="submit">View Details</button>
+                </form> 
+            {% endfor %}
+            </div>
+            <hr>
+        {% else %}
+            <p> No Jobs Posted </p>
+        {% endif %}
+
+        
+
         <a href="/alljobs">
             <button type = "submit">
                 View jobs

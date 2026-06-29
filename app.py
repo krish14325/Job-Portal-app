@@ -26,3 +26,4 @@ def dashboard():
     return redirect(url_for("jobs.candidate"))
 if __name__ == "__main__":
     app.run(debug=True)
+    

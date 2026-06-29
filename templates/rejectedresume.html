@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accepted Resume</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <h1> Accepted Resume</h1>
+    </header>
+    <main>
+        {% if posted %}
+            {% for i in posted %}
+            <div>
+                <p>Candidate Name : {{i[0]}}</p>
+                <p>Applied Position : {{i[1]}}</p>
+                <p>Salary : {{i[2]}}</p>
+                <p>Resume : {{i[3]}}</p>
+            </div>
+            {% endfor %}
+        {% else %}
+            <p> No Resume Rejected</p>
+        {% endif %}
+        <a href="/dashboard">
+            <button type="submit">Back</button>
+        </a>
+    </main>
+</body>
+</html>

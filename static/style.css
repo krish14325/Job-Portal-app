@@ -1,0 +1,1745 @@
+/* ==========================================
+   WorkIntern Registration Page Stylesheet
+   ========================================== */
+
+/* Reset & Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f3f4f6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    color: #1f2937;
+}
+
+/* Card Container */
+body > div, 
+main {
+    background: #ffffff;
+    max-width: 500px;
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    padding: 40px;
+    text-align: center;
+}
+
+/* Combined header handling if wrapped together */
+header {
+    margin-bottom: 24px;
+}
+
+header h2 {
+    color: #0f4c81;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+header h1 {
+    color: #4b5563;
+    font-size: 1.4rem;
+    font-weight: 500;
+}
+
+/* Flash Messages (Flask Alert) */
+main p:first-of-type:not(form ~ p) {
+    background-color: #def7ec;
+    color: #03543f;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    border: 1px solid #bfecdc;
+}
+
+/* Form Layout */
+form {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+/* Labels */
+label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 6px;
+}
+
+/* Inputs & Select Dropdowns */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 1rem;
+    color: #1f2937;
+    background-color: #f9fafb;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+input:focus,
+select:focus {
+    border-color: #10b981;
+    background-color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+}
+
+/* Remove br element spacing gaps to favor modern CSS layouts */
+br {
+    display: none;
+}
+
+/* Structural gaps replacing the <br> tags */
+input, select {
+    margin-bottom: 20px;
+}
+
+/* Custom styling for Select dropdown */
+select {
+    appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%234b5563' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'></polyline></svg>");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 16px;
+    cursor: pointer;
+}
+
+/* Submit Button */
+button[type="submit"] {
+    width: 100%;
+    background-color: #10b981;
+    color: white;
+    border: none;
+    padding: 14px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    margin-top: 10px;
+    margin-bottom: 24px;
+}
+
+button[type="submit"]:hover {
+    background-color: #059669;
+}
+
+button[type="submit"]:active {
+    transform: scale(0.98);
+}
+
+/* Footer Section ("Already Have An Account") */
+main p:last-of-type {
+    font-size: 0.95rem;
+    color: #6b7280;
+    margin-bottom: 12px;
+    display: inline-block;
+    margin-right: 8px;
+}
+
+a {
+    text-decoration: none;
+    display: inline-block;
+}
+
+/* Secondary Login Button */
+a button {
+    background-color: #e5e7eb;
+    color: #374151;
+    border: 1px solid #d1d5db;
+    padding: 8px 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+a button:hover {
+    background-color: #d1d5db;
+    color: #111827;
+}
+
+
+/* ==========================================
+   WorkIntern Login Page Stylesheet
+   ========================================== */
+
+/* Reset & Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f3f4f6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    color: #1f2937;
+}
+
+/* Card Container */
+main {
+    background: #ffffff;
+    max-width: 450px;
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    padding: 40px;
+    text-align: center;
+}
+
+/* Header Handling inside or above main */
+header {
+    margin-bottom: 24px;
+}
+
+/* Mimicking the WorkIntern Branding Style from Register */
+header::before {
+    content: "WorkIntern";
+    display: block;
+    color: #0f4c81;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+header h1 {
+    color: #4b5563;
+    font-size: 1.4rem;
+    font-weight: 500;
+}
+
+/* Flash Messages (Flask Alert) */
+main p:first-of-type:not(form ~ p) {
+    background-color: #fde8e8;
+    color: #9b1c1c;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    border: 1px solid #f8b4b4;
+}
+
+/* Form Layout */
+form {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+/* Labels */
+label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 6px;
+}
+
+/* Inputs */
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 1rem;
+    color: #1f2937;
+    background-color: #f9fafb;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+input:focus {
+    border-color: #10b981;
+    background-color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+}
+
+/* Neutralizing br tag gaps to use clean flex spacing */
+br {
+    display: none;
+}
+
+input {
+    margin-bottom: 20px;
+}
+
+/* Login Action Button */
+button[type="submit"] {
+    width: 100%;
+    background-color: #10b981;
+    color: white;
+    border: none;
+    padding: 14px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    margin-top: 10px;
+}
+
+button[type="submit"]:hover {
+    background-color: #059669;
+}
+
+button[type="submit"]:active {
+    transform: scale(0.98);
+}
+
+/* Footer Section ("Don't Have An Account") */
+form ~ p {
+    font-size: 0.95rem;
+    color: #6b7280;
+    margin-top: 24px;
+    margin-bottom: 12px;
+    display: inline-block;
+    margin-right: 8px;
+}
+
+a {
+    text-decoration: none;
+    display: inline-block;
+}
+
+/* Secondary Registration Button */
+a button {
+    background-color: #e5e7eb;
+    color: #374151;
+    border: 1px solid #d1d5db;
+    padding: 8px 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+a button:hover {
+    background-color: #d1d5db;
+    color: #111827;
+}
+
+
+/* ==========================================
+   WorkIntern Dashboard Stylesheet
+   ========================================== */
+
+/* Reset & Layout Framework */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f3f4f6;
+    color: #1f2937;
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Flash Messages Alert Box */
+body > p:first-of-type {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #def7ec;
+    color: #03543f;
+    padding: 16px 24px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    border: 1px solid #bfecdc;
+    font-weight: 500;
+}
+
+/* Sidebar Structure (Constructed using the action buttons/links) */
+header {
+    width: 260px;
+    background-color: #111827;
+    color: #ffffff;
+    padding: 30px 20px;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    z-index: 10;
+}
+
+header h2 {
+    color: #10b981; /* Brand green */
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 30px;
+    letter-spacing: 0.5px;
+}
+
+header h1 {
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: #9ca3af;
+    border-bottom: 1px solid #374151;
+    padding-bottom: 20px;
+    margin-bottom: 250px; /* Forces spacing down to make room for absolute positioned navigation buttons */
+}
+
+/* Main Content Wrapper */
+main {
+    margin-left: 260px; /* Offset for fixed sidebar */
+    width: calc(100% - 260px);
+    padding: 40px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    align-content: start;
+}
+
+/* Clean up HTML formatting tags */
+br, hr {
+    display: none;
+}
+
+/* Stats Cards Top Section */
+main > div:nth-child(-n+3) {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+main > div:nth-child(-n+3):hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+main > div:nth-child(-n+3) a {
+    text-decoration: none;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* Target Individual Stats Components */
+main > div:nth-of-type(1) p:first-of-type { color: #4b5563; font-weight: 600; }
+main > div:nth-of-type(1) p:last-of-type { color: #2563eb; font-size: 2rem; font-weight: 700; } /* Blue for Total */
+
+main > div:nth-of-type(2) p:first-of-type { color: #047857; font-weight: 600; }
+main > div:nth-of-type(2) p:last-of-type { color: #10b981; font-size: 2rem; font-weight: 700; } /* Green for Accepted */
+
+main > div:nth-of-type(3) p:first-of-type { color: #b91c1c; font-weight: 600; }
+main > div:nth-of-type(3) p:last-of-type { color: #ef4444; font-size: 2rem; font-weight: 700; } /* Red for Rejected */
+
+
+/* Job Listings Container Section */
+main > div:nth-of-type(4) {
+    grid-column: span 3;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+/* Individual Job Cards Generated inside the Loop */
+main > div:nth-of-type(4) h2 {
+    grid-column: span 3;
+    font-size: 1.3rem;
+    color: #1f2937;
+    margin-bottom: -10px;
+}
+
+/* Styling for dynamically generated job detail segments */
+main > div:nth-of-type(4) > h2,
+main > div:nth-of-type(4) > p,
+main > div:nth-of-type(4) > form {
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+/* Re-grouping the loop contents visually using card structures */
+main > div:nth-of-type(4) h2 {
+    margin-top: 15px;
+    font-size: 1.2rem;
+    border-left: 4px solid #10b981;
+    border-radius: 4px 4px 0 0;
+    padding-bottom: 5px;
+}
+main > div:nth-of-type(4) p:nth-of-type(3n-2) { margin-top: -20px; border-radius: 0; padding-top: 0; color: #4b5563;} /* Desc */
+main > div:nth-of-type(4) p:nth-of-type(3n-1) { margin-top: -20px; border-radius: 0; padding-top: 0; font-weight: 500; color: #6b7280;} /* Loc */
+main > div:nth-of-type(4) p:nth-of-type(3n) { margin-top: -20px; border-radius: 0; padding-top: 0; font-weight: 600; color: #059669;} /* Salary */
+main > div:nth-of-type(4) form {
+    margin-top: -20px;
+    margin-bottom: 20px;
+    border-radius: 0 0 10px 10px;
+    padding-top: 5px;
+}
+
+/* Action Button inside Job Card */
+main > div:nth-of-type(4) form button {
+    width: 100%;
+    background-color: #f3f4f6;
+    color: #374151;
+    border: 1px solid #e5e7eb;
+    padding: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+main > div:nth-of-type(4) form button:hover {
+    background-color: #10b981;
+    color: #ffffff;
+    border-color: #10b981;
+}
+
+/* Empty Jobs Text state styling */
+main > p {
+    grid-column: span 3;
+    text-align: center;
+    color: #6b7280;
+    padding: 40px;
+    background: #ffffff;
+    border-radius: 12px;
+}
+
+
+/* Repositioning Navigation Link Buttons to Sidebar Area */
+main > a:nth-of-type(1),
+main > a:nth-of-type(2),
+main > a:nth-of-type(3),
+main > form:last-of-type {
+    position: fixed;
+    left: 20px;
+    width: 220px;
+    z-index: 20;
+}
+
+/* Explicit Navigation Row Layout placement in Sidebar */
+main > a:nth-of-type(1) { top: 140px; } /* View Jobs */
+main > a:nth-of-type(2) { top: 195px; } /* Upload Resume */
+main > a:nth-of-type(3) { top: 250px; } /* My Applications */
+main > form:last-of-type { bottom: 30px; } /* Logout Button */
+
+/* Main Sidebar Button Core Designs */
+main > a button,
+main > form:last-of-type button {
+    width: 100%;
+    background-color: transparent;
+    color: #d1d5db;
+    border: none;
+    padding: 12px 16px;
+    text-align: left;
+    font-size: 0.95rem;
+    font-weight: 500;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+main > a button:hover {
+    background-color: #1f2937;
+    color: #ffffff;
+}
+
+/* Special Emphasis style for Logout Button */
+main > form:last-of-type button {
+    color: #fca5a5;
+    border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+main > form:last-of-type button:hover {
+    background-color: #991b1b;
+    color: #ffffff;
+}
+
+/* ==========================================
+   WorkIntern All Jobs Page Stylesheet
+   ========================================== */
+
+/* Reset & Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f3f4f6;
+    color: #1f2937;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Flash Messages Alert Box */
+body > p:first-of-type {
+    background-color: #def7ec;
+    color: #03543f;
+    padding: 12px 24px;
+    border-radius: 8px;
+    margin-bottom: 24px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    border: 1px solid #bfecdc;
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+/* Page Header Styling */
+header {
+    max-width: 800px;
+    width: 100%;
+    margin-bottom: 24px;
+    text-align: left;
+}
+
+header h1 {
+    font-size: 2rem;
+    color: #111827;
+    font-weight: 700;
+    position: relative;
+    padding-bottom: 8px;
+}
+
+header h1::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 4px;
+    background-color: #10b981; /* WorkIntern Green theme */
+    border-radius: 2px;
+}
+
+/* Main Feed Container */
+main {
+    max-width: 800px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* Individual Job Rows/Cards generated by the loop */
+main > div {
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 20px 24px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border-left: 4px solid #10b981;
+}
+
+main > div:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
+}
+
+/* Job Title Style */
+main > div > p {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #1f2937;
+}
+
+/* Neutralizing native br and hr formatting inside dynamic lists */
+br, hr {
+    display: none;
+}
+
+/* View Details Action Form/Button */
+main > div form {
+    margin: 0;
+}
+
+main > div form button {
+    background-color: #f3f4f6;
+    color: #4b5563;
+    border: 1px solid #d1d5db;
+    padding: 10px 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+main > div form button:hover {
+    background-color: #10b981;
+    color: #ffffff;
+    border-color: #10b981;
+}
+
+/* Back to Dashboard Button styling at the bottom */
+main > a {
+    text-decoration: none;
+    align-self: flex-start;
+    margin-top: 12px;
+}
+
+main > a button {
+    background-color: #111827;
+    color: #ffffff;
+    border: none;
+    padding: 12px 24px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+main > a button:hover {
+    background-color: #1f2937;
+}
+
+/* Left arrow utility layout decoration before the Dashboard text button */
+main > a button::before {
+    content: "←";
+    font-size: 1.1rem;
+}
+
+/* ==========================================
+   WorkIntern Job Detail Page Stylesheet
+   ========================================== */
+
+/* Reset & Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f3f4f6;
+    color: #1f2937;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Flash Messages Alert Box */
+body > p:first-of-type {
+    background-color: #def7ec;
+    color: #03543f;
+    padding: 12px 24px;
+    border-radius: 8px;
+    margin-bottom: 24px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    border: 1px solid #bfecdc;
+    max-width: 650px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+/* Page Header Styling */
+header {
+    max-width: 650px;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+header h1 {
+    font-size: 1.8rem;
+    color: #111827;
+    font-weight: 700;
+}
+
+/* Main Profile Card Container */
+main {
+    background: #ffffff;
+    max-width: 650px;
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.04);
+    padding: 32px;
+    border-top: 5px solid #10b981; /* WorkIntern Accent */
+}
+
+/* Recruiter Heading Info */
+main h3 {
+    font-size: 1.1rem;
+    color: #4b5563;
+    font-weight: 500;
+    margin-bottom: 24px;
+    background-color: #f9fafb;
+    padding: 10px 16px;
+    border-radius: 6px;
+    display: inline-block;
+}
+
+/* Job Field Text Paragraphs */
+main p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #374151;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px dashed #f3f4f6;
+}
+
+/* Distinguishing the Job Title / Position element */
+main p:nth-of-type(1) {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #111827;
+    border-bottom: 2px solid #e5e7eb;
+    padding-bottom: 16px;
+    margin-bottom: 20px;
+}
+
+/* Label prefix styles simulated via formatting context */
+main p:nth-of-type(2)::before { content: "Description: "; font-weight: 600; color: #4b5563; display: block; margin-bottom: 4px; }
+main p:nth-of-type(3)::before { content: "Location: "; font-weight: 600; color: #4b5563; }
+main p:nth-of-type(4)::before { content: "Salary: "; font-weight: 600; color: #4b5563; }
+
+/* Highlighted elements data clean up styling */
+main p:nth-of-type(4) {
+    color: #059669;
+    font-weight: 600;
+    border-bottom: none;
+    font-size: 1.1rem;
+}
+
+/* Hiding original template spacing markup breaks */
+br {
+    display: none;
+}
+
+/* Action Buttons Container Grid Layout */
+form {
+    margin-top: 24px;
+    margin-bottom: 16px;
+}
+
+/* Primary Form Action: Apply Button */
+form button[type="submit"] {
+    width: 100%;
+    background-color: #10b981;
+    color: #ffffff;
+    border: none;
+    padding: 14px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.2);
+}
+
+form button[type="submit"]:hover {
+    background-color: #059669;
+}
+
+form button[type="submit"]:active {
+    transform: scale(0.99);
+}
+
+/* Return Navigation Button Styling */
+main > a {
+    text-decoration: none;
+    display: block;
+}
+
+main > a button {
+    width: 100%;
+    background-color: #ffffff;
+    color: #4b5563;
+    border: 1px solid #d1d5db;
+    padding: 12px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+main > a button:hover {
+    background-color: #f3f4f6;
+    color: #111827;
+}
+
+/* ==========================================
+   WorkIntern My Applications Page Stylesheet
+   ========================================== */
+
+/* Reset & Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f3f4f6;
+    color: #1f2937;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Page Header Styling */
+header {
+    max-width: 750px;
+    width: 100%;
+    margin-bottom: 28px;
+}
+
+header h1 {
+    font-size: 1.8rem;
+    color: #111827;
+    font-weight: 700;
+}
+
+/* Main Content Layout Container */
+main {
+    max-width: 750px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Hide native horizontal break lines from the template loop */
+hr {
+    display: none;
+}
+
+/* Advanced Selection Logic to wrap uncontainerized looping paragraph elements.
+   Groups groups of 4 consecutive <p> tags into visual cards.
+*/
+main > p:nth-of-type(4n-3) {
+    background: #ffffff;
+    border-radius: 12px 12px 0 0;
+    padding: 24px 24px 8px 24px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 0;
+}
+
+/* Location Field Row */
+main > p:nth-of-type(4n-2) {
+    background: #ffffff;
+    padding: 4px 24px;
+    color: #4b5563;
+    font-size: 0.95rem;
+}
+main > p:nth-of-type(4n-2)::before {
+    content: "📍 ";
+}
+
+/* Salary Field Row */
+main > p:nth-of-type(4n-1) {
+    background: #ffffff;
+    padding: 4px 24px 12px 24px;
+    color: #059669;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+/* Status Row Base Style */
+main > p:nth-of-type(4n) {
+    background: #ffffff;
+    border-radius: 0 0 12px 12px;
+    padding: 0 24px 24px 24px;
+    margin-bottom: 8px; /* Gap separating application blocks */
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+}
+
+/* Attribute labeling injection */
+main > p:nth-of-type(4n)::before {
+    content: "Status: ";
+    color: #9ca3af;
+    font-weight: 500;
+    margin-right: 6px;
+}
+
+/* Dynamic State Styling Variations depending on inner text data properties */
+main > p:nth-of-type(4n)[style*="accepted"], 
+main > p:nth-of-type(4n):contains("Accepted") {
+    color: #10b981;
+}
+
+main > p:nth-of-type(4n)[style*="rejected"],
+main > p:nth-of-type(4n):contains("rejected") {
+    color: #ef4444;
+}
+
+/* Return Action Dashboard Button */
+main > a {
+    text-decoration: none;
+    align-self: flex-start;
+    margin-top: 12px;
+}
+
+main > a button {
+    background-color: #111827;
+    color: #ffffff;
+    border: none;
+    padding: 12px 24px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+main > a button:hover {
+    background-color: #1f2937;
+}
+
+main > a button::before {
+    content: "←";
+    font-size: 1.1rem;
+}
+
+/* ==========================================
+   WorkIntern Recruiter Dashboard Stylesheet
+   ========================================== */
+
+/* Reset & Layout Framework */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f3f4f6;
+    color: #1f2937;
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Flash Messages Alert Box */
+body > p:first-of-type {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #def7ec;
+    color: #03543f;
+    padding: 16px 24px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    border: 1px solid #bfecdc;
+    font-weight: 500;
+}
+
+/* Sidebar Structure (Constructed using Header elements) */
+header {
+    width: 260px;
+    background-color: #111827; /* Dark Admin Sidebar Theme */
+    color: #ffffff;
+    padding: 30px 20px;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    z-index: 10;
+    border-right: 1px solid #1f2937;
+}
+
+header h2 {
+    color: #10b981; /* WorkIntern signature Green */
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 24px;
+    letter-spacing: 0.5px;
+}
+
+header h1 {
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: #9ca3af;
+    border-bottom: 1px solid #374151;
+    padding-bottom: 20px;
+}
+
+/* Main Content Dashboard Workspace */
+main {
+    margin-left: 260px; /* Offset for sidebar width */
+    width: calc(100% - 260px);
+    padding: 40px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 Columns layout for the 4 recruiter stats */
+    gap: 20px;
+    align-content: start;
+}
+
+/* Cleaning up original layout breaks */
+br {
+    display: none;
+}
+
+/* Recruiter Analytics Stat Cards (The top 4 wrapper divs) */
+main > div:nth-child(-n+4) {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.03);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+main > div:nth-child(-n+4):hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
+}
+
+main > div:nth-child(-n+4) a {
+    text-decoration: none;
+    padding: 24px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Target Individual Recruiter Analytics Metrics colors */
+main > div:nth-of-type(1) p:first-of-type { color: #4b5563; font-weight: 600; font-size: 0.95rem; }
+main > div:nth-of-type(1) p:last-of-type { color: #111827; font-size: 2rem; font-weight: 700; } /* Total Jobs style */
+
+main > div:nth-of-type(2) p:first-of-type { color: #4b5563; font-weight: 600; font-size: 0.95rem; }
+main > div:nth-of-type(2) p:last-of-type { color: #2563eb; font-size: 2rem; font-weight: 700; } /* Total Applicants Blue */
+
+main > div:nth-of-type(3) p:first-of-type { color: #047857; font-weight: 600; font-size: 0.95rem; }
+main > div:nth-of-type(3) p:last-of-type { color: #10b981; font-size: 2rem; font-weight: 700; } /* Resumes accepted Green */
+
+main > div:nth-of-type(4) p:first-of-type { color: #b91c1c; font-weight: 600; font-size: 0.95rem; }
+main > div:nth-of-type(4) p:last-of-type { color: #ef4444; font-size: 2rem; font-weight: 700; } /* Resumes rejected Red */
+
+
+/* Absolute Placement of Sidebar Forms & Control Buttons */
+main > form:nth-of-type(1),
+main > form:nth-of-type(2),
+main > form:nth-of-type(3),
+main > form:last-of-type {
+    position: fixed;
+    left: 20px;
+    width: 220px;
+    z-index: 20;
+}
+
+/* Navigation Form Rows sequencing inside the left panel */
+main > form:nth-of-type(1) { top: 140px; } /* Create Job */
+main > form:nth-of-type(2) { top: 195px; } /* View Created Jobs */
+main > form:nth-of-type(3) { top: 250px; } /* View Applicants */
+main > form:last-of-type { bottom: 30px; } /* Logout button */
+
+/* Base Core Sidebar Action Control Buttons styling */
+main > form button {
+    width: 100%;
+    background-color: transparent;
+    color: #d1d5db;
+    border: none;
+    padding: 12px 16px;
+    text-align: left;
+    font-size: 0.95rem;
+    font-weight: 500;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+main > form button:hover {
+    background-color: #1f2937;
+    color: #ffffff;
+}
+
+/* Distinct Highlight Color for the Primary Call to Action "Create Job" button */
+main > form:nth-of-type(1) button {
+    background-color: #10b981;
+    color: #ffffff;
+    font-weight: 600;
+    box-shadow: 0 2px 4px rgba(16, 185, 129, 0.1);
+}
+
+main > form:nth-of-type(1) button:hover {
+    background-color: #059669;
+}
+
+/* Specific styling emphasis exclusively for the Logout CTA */
+main > form:last-of-type button {
+    color: #fca5a5;
+    border: 1px solid rgba(239, 68, 68, 0.15);
+}
+
+main > form:last-of-type button:hover {
+    background-color: #991b1b;
+    color: #ffffff;
+    border-color: #991b1b;
+}
+
+/* ==========================================
+   WorkIntern Recruiter Posted Jobs Stylesheet
+   ========================================== */
+
+/* Reset & Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f3f4f6;
+    color: #1f2937;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Page Header Styling */
+header {
+    max-width: 800px;
+    width: 100%;
+    margin-bottom: 24px;
+}
+
+header h1 {
+    font-size: 1.8rem;
+    color: #111827;
+    font-weight: 700;
+    position: relative;
+    padding-bottom: 8px;
+}
+
+header h1::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50px;
+    height: 4px;
+    background-color: #10b981; /* WorkIntern Green Theme */
+    border-radius: 2px;
+}
+
+/* Main Container Framework */
+main {
+    max-width: 800px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* Remove markup breaks from layout */
+hr {
+    display: none;
+}
+
+/* Individual Job Details Wrapper Blocks */
+main > div {
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 24px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr; /* Side-by-side display for Title, Location, Salary */
+    align-items: center;
+    gap: 16px;
+    border-left: 4px solid #111827; /* Dark structural accent */
+    transition: transform 0.2s ease;
+}
+
+main > div:hover {
+    transform: translateX(4px);
+}
+
+/* Specific Paragraph Formatting */
+main > div p {
+    font-size: 0.95rem;
+    color: #4b5563;
+}
+
+/* Position / Title Entry Highlight */
+main > div p:nth-child(1) {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #111827;
+}
+
+/* Location Style styling */
+main > div p:nth-child(2) {
+    font-weight: 500;
+    color: #6b7280;
+}
+
+/* Salary Entry Highlight styling */
+main > div p:nth-child(3) {
+    font-weight: 600;
+    color: #059669; /* Green for monetary metrics */
+    text-align: right;
+}
+
+/* Empty State Styling ("No Jobs Posted") */
+main > p {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 40px;
+    text-align: center;
+    color: #6b7280;
+    font-size: 1.05rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.03);
+}
+
+/* Back Navigation Action Button Link container */
+main > a {
+    text-decoration: none;
+    align-self: flex-start;
+    margin-top: 12px;
+}
+
+main > a button {
+    background-color: #111827;
+    color: #ffffff;
+    border: none;
+    padding: 12px 24px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+main > a button:hover {
+    background-color: #1f2937;
+}
+
+main > a button::before {
+    content: "←";
+    font-size: 1.1rem;
+}
+
+/* ==========================================
+   WorkIntern Recruiter Accepted Resumes Stylesheet
+   ========================================== */
+
+/* Reset & Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f3f4f6;
+    color: #1f2937;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Page Header Styling */
+header {
+    max-width: 800px;
+    width: 100%;
+    margin-bottom: 24px;
+}
+
+header h1 {
+    font-size: 1.8rem;
+    color: #111827;
+    font-weight: 700;
+    position: relative;
+    padding-bottom: 8px;
+}
+
+header h1::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50px;
+    height: 4px;
+    background-color: #10b981; /* WorkIntern Green Theme for Acceptance */
+    border-radius: 2px;
+}
+
+/* Main Container Framework */
+main {
+    max-width: 800px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* Individual Candidate Record Card Blocks */
+main > div {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Clean split layout structure */
+    gap: 12px 24px;
+    border-left: 5px solid #10b981; /* Thick green left border accent */
+    position: relative;
+}
+
+/* Individual Row Entries Formatting */
+main > div p {
+    font-size: 0.95rem;
+    color: #4b5563;
+    line-height: 1.4;
+}
+
+/* Candidate Name Selection Highlight */
+main > div p:nth-child(1) {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #111827;
+    grid-column: span 2;
+    border-bottom: 1px solid #f3f4f6;
+    padding-bottom: 8px;
+    margin-bottom: 4px;
+}
+
+/* Applied Position Style formatting */
+main > div p:nth-child(2)::before {
+    content: "💼 ";
+}
+
+/* Salary Entry formatting */
+main > div p:nth-child(3) {
+    font-weight: 600;
+    color: #059669;
+}
+main > div p:nth-child(3)::before {
+    content: "💰 ";
+    color: #9ca3af;
+}
+
+/* Resume link reference or path entry highlight */
+main > div p:nth-child(4) {
+    grid-column: span 2;
+    background: #f9fafb;
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-family: monospace;
+    font-size: 0.85rem;
+    color: #2563eb; /* Link-like focus */
+    border: 1px dashed #e5e7eb;
+    word-break: break-all;
+}
+main > div p:nth-child(4)::before {
+    content: "📄 Attached Resume: ";
+    font-family: 'Segoe UI', sans-serif;
+    font-weight: 600;
+    color: #4b5563;
+}
+
+/* Empty State Handling ("No Resumes...") */
+main > p {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 40px;
+    text-align: center;
+    color: #6b7280;
+    font-size: 1.05rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.03);
+}
+
+/* Back Navigation Action Button Link container */
+main > a {
+    text-decoration: none;
+    align-self: flex-start;
+    margin-top: 12px;
+}
+
+main > a button {
+    background-color: #111827;
+    color: #ffffff;
+    border: none;
+    padding: 12px 24px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+main > a button:hover {
+    background-color: #1f2937;
+}
+
+main > a button::before {
+    content: "←";
+    font-size: 1.1rem;
+}
+
+/* ==========================================
+   WorkIntern Recruiter Applicants Stylesheet
+   ========================================== */
+
+/* Reset & Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f3f4f6;
+    color: #1f2937;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Flash Messages Alert Box */
+body > p:first-of-type {
+    background-color: #e0f2fe;
+    color: #0369a1;
+    padding: 12px 24px;
+    border-radius: 8px;
+    margin-bottom: 24px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    border: 1px solid #bae6fd;
+    max-width: 800px;
+    width: 100%;
+    text-align: center;
+}
+
+/* Page Header Styling */
+header {
+    max-width: 800px;
+    width: 100%;
+    margin-bottom: 24px;
+}
+
+header h1 {
+    font-size: 1.8rem;
+    color: #111827;
+    font-weight: 700;
+    position: relative;
+    padding-bottom: 8px;
+}
+
+header h1::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50px;
+    height: 4px;
+    background-color: #10b981;
+    border-radius: 2px;
+}
+
+/* Main Container Framework */
+main {
+    max-width: 800px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Clean up template markup elements */
+br, hr {
+    display: none;
+}
+
+/* Individual Applicant Card */
+main > div {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    display: grid;
+    grid-template-columns: 1fr auto auto auto; /* Aligns textual details left, action items right */
+    align-items: center;
+    gap: 12px 20px;
+}
+
+/* Layout wrapping context for textual fields */
+main > div h2 {
+    grid-column: 1 / 2;
+    font-size: 1.25rem;
+    color: #111827;
+    font-weight: 700;
+}
+
+main > div p {
+    grid-column: 1 / 2;
+    font-size: 0.95rem;
+    color: #4b5563;
+}
+
+main > div p:nth-of-type(1) { font-weight: 600; color: #1f2937; } /* Candidate Name */
+main > div p:nth-of-type(2) { color: #6b7280; margin-top: -6px; } /* Email */
+main > div p:nth-of-type(3) { font-size: 0.85rem; color: #9ca3af; } /* Applied Date */
+
+/* Base Styles for all inline action items inside the cards */
+main > div a,
+main > div form {
+    margin: 0;
+    grid-row: 1 / 5; /* Vertically centers buttons across the height of the card text */
+}
+
+/* Layout sequencing for action flows */
+main > div a { grid-column: 2; }       /* View Resume */
+main > div form:nth-of-type(1) { grid-column: 3; } /* Accept form */
+main > div form:nth-of-type(2) { grid-column: 4; } /* Reject form */
+
+main > div button {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
+}
+
+/* View Resume Button Variant */
+main > div a button {
+    background-color: #f3f4f6;
+    color: #374151;
+    border: 1px solid #d1d5db;
+}
+
+main > div a button:hover {
+    background-color: #e5e7eb;
+    color: #111827;
+}
+
+/* Accept Button Variant */
+main > div form:nth-of-type(1) button {
+    background-color: #10b981;
+    color: #ffffff;
+}
+
+main > div form:nth-of-type(1) button:hover {
+    background-color: #059669;
+}
+
+/* Reject Button Variant */
+main > div form:nth-of-type(2) button {
+    background-color: #fde8e8;
+    color: #dc2626;
+    border: 1px solid #fca5a5;
+}
+
+main > div form:nth-of-type(2) button:hover {
+    background-color: #dc2626;
+    color: #ffffff;
+    border-color: #dc2626;
+}
+
+/* Back Navigation Action Button Link container */
+main > a {
+    text-decoration: none;
+    align-self: flex-start;
+    margin-top: 12px;
+}
+
+main > a button {
+    background-color: #111827;
+    color: #ffffff;
+    border: none;
+    padding: 12px 24px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+main > a button:hover {
+    background-color: #1f2937;
+}
+
+main > a button::before {
+    content: "←";
+    font-size: 1.1rem;
+}
+
+
+
+

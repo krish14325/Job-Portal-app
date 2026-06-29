@@ -12,15 +12,117 @@ def recruiter():
     user = session["user_id"]
     if request.method == "POST":
         return redirect(url_for("jobs.createjob"))
-    return render_template("recruiter.html")
+    query = """
+            SELECT USERNAME
+            FROM 
+            USERS
+            WHERE USER_ID = %s
+            """
+    values = (user,)
+    cur = conn.cursor()
+    cur.execute(query , values)
+    username = cur.fetchone()
+    query = """
+            SELECT COUNT(*)
+            FROM JOBS
+            WHERE RECRUITER_ID = %s
+            """
+    values = (user,)
+    cur = conn.cursor()
+    cur.execute(query , values)
+    found = cur.fetchone()
+    query = """
+            SELECT COUNT(*)
+            FROM APPLICATIONS
+            JOIN JOBS
+            ON APPLICATIONS.JOB_ID = JOBS.JOB_ID
+            WHERE RECRUITER_ID = %s AND STATUS = "accepted"
+            """
+    values = (user,)
+    cur = conn.cursor()
+    cur.execute(query , values)
+    accept = cur.fetchone()
+    query = """
+            SELECT COUNT(*)
+            FROM APPLICATIONS
+            JOIN JOBS
+            ON APPLICATIONS.JOB_ID = JOBS.JOB_ID
+            WHERE RECRUITER_ID = %s AND STATUS = "rejected"
+            """
+    values = (user,)
+    cur = conn.cursor()
+    cur.execute(query , values)
+    reject = cur.fetchone()
+    query = """
+            SELECT COUNT(*)
+            FROM APPLICATIONS
+            JOIN JOBS
+            ON APPLICATIONS.JOB_ID = JOBS.JOB_ID
+            WHERE RECRUITER_ID = %s
+            """
+    values = (user,)
+    cur = conn.cursor()
+    cur.execute(query , values)
+    applicants = cur.fetchone()
+    return render_template("recruiter.html" ,applicants=applicants[0], total=found[0] , accepted=accept[0] , rejected=reject[0] , username=username[0])
 
 @jobs.route("/candidate" , methods=["GET"])
 def candidate():
     if "user_id" not in session:
         return redirect(url_for("auth.login"))
     user = session["user_id"]
-    return render_template("candidate.html")
+    query = """
+            SELECT USERNAME
+            FROM 
+            USERS
+            WHERE USER_ID = %s
+            """
+    values = (user,)
+    cur = conn.cursor()
+    cur.execute(query , values)
+    username = cur.fetchone()
+    query = """
+            SELECT COUNT(*)
+            FROM 
+            APPLICATIONS
+            WHERE CANDIDATE_ID = %s
+            """
+    values = (user,)
+    cur = conn.cursor()
+    cur.execute(query , values)
+    found = cur.fetchone()
+    query = """
+            SELECT COUNT(*)
+            FROM 
+            APPLICATIONS
+            WHERE CANDIDATE_ID = %s AND STATUS = "accepted"
+            """
+    values = (user,)
+    cur = conn.cursor()
+    cur.execute(query , values)
+    accept = cur.fetchone()
+    query = """
+            SELECT COUNT(*)
+            FROM 
+            APPLICATIONS
+            WHERE CANDIDATE_ID = %s AND STATUS = "rejected"
+            """
+    values = (user,)
+    cur = conn.cursor()
+    cur.execute(query , values)
+    reject = cur.fetchone()
+    query = """
+            SELECT *
+            FROM JOBS
+            ORDER BY RAND()
+            LIMIT 2
+            """
+    cur = conn.cursor()
+    cur.execute(query)
+    job = cur.fetchall()
+    return render_template("candidate.html" ,job=job, total=found[0] , accepted=accept[0] , rejected=reject[0] , username=username[0])
 
+    
 @jobs.route("/alljobs",methods=["GET","POST"])
 def alljobs():
     if "user_id" not in session:
@@ -205,7 +307,7 @@ def viewapplicants():
     
     if request.method == "GET":
         query = """
-                SELECT JOBS.TITLE , USERS.USERNAME , USERS.EMAIL , APPLICATIONS.APPLIED_AT , APPLICATIONS.RESUME
+                SELECT JOBS.TITLE , USERS.USERNAME , USERS.EMAIL , APPLICATIONS.APPLIED_AT , APPLICATIONS.RESUME , APPLICATIONS.APPLICATION_ID
                 FROM APPLICATIONS
                 JOIN JOBS
                 ON APPLICATIONS.JOB_ID = JOBS.JOB_ID
@@ -280,4 +382,141 @@ def myapplications():
         flash("No Jobs Applied","Error")
         return render_template("myapplications.html",applications=None)
     return render_template("myapplications.html",applications=found)
+
+@jobs.route("/status", methods=["POST"])
+def status():
+    if "user_id" not in session:
+        return redirect(url_for("auth.login"))
+
+    email = request.form["email"]
+    application_id = request.form["application_id"]  # ✅ get directly from form
+
+    if "accepted" in request.form:
+        new_status = "accepted"
+        message = "Resume Accepted"
+    elif "rejected" in request.form:
+        new_status = "rejected"
+        message = "Resume Rejected"
+    else:
+        flash("Invalid Action", "Error")
+        return redirect(url_for("jobs.viewapplicants"))
+
+    cur = conn.cursor(buffered=True)
+
+    # verify candidate exists
+    cur.execute("SELECT USER_ID FROM USERS WHERE EMAIL = %s", (email,))
+    found = cur.fetchone()
+    if not found:
+        flash("User Not Found", "Error")
+        return redirect(url_for("jobs.viewapplicants"))
+
+    # update using application_id directly — no need to search for it!
+    cur.execute(
+        "UPDATE APPLICATIONS SET STATUS = %s WHERE APPLICATION_ID = %s",
+        (new_status, application_id)
+    )
+    conn.commit()
+    flash(message, "Success")
+    return redirect(url_for("jobs.viewapplicants"))
+
+@jobs.route("/shortlisted" , methods=["GET"])
+def shortlisted():
+    if "user_id" not in session:
+        return redirect(url_for("auth.login"))
+    user = session["user_id"]
+    query = """
+            SELECT JOBS.TITLE ,LOCATION , SALARY ,  STATUS
+            FROM APPLICATIONS
+            JOIN JOBS
+            ON APPLICATIONS.JOB_ID = JOBS.JOB_ID
+            WHERE CANDIDATE_ID = %s AND STATUS = "accepted";
+            """
+    values = (user,)
+    cur = conn.cursor()
+    cur.execute(query , values)
+    found = cur.fetchall()
+    if not found:
+        return render_template("accepted.html" , accepted=None)
+    return render_template("accepted.html",accepted=found)
+
+@jobs.route("/rejected" , methods=["GET"])
+def rejected():
+    if "user_id" not in session:
+        return redirect(url_for("auth.login"))
+    user = session["user_id"]
+    query = """
+            SELECT JOBS.TITLE ,LOCATION , SALARY ,  STATUS
+            FROM APPLICATIONS
+            JOIN JOBS
+            ON APPLICATIONS.JOB_ID = JOBS.JOB_ID
+            WHERE CANDIDATE_ID = %s AND STATUS = "rejected";
+            """
+    values = (user,)
+    cur = conn.cursor()
+    cur.execute(query , values)
+    found = cur.fetchall()
+    if not found:
+        return render_template("rejected.html" , accepted=None)
+    return render_template("rejected.html",accepted=found)
     
+@jobs.route("/postedjobs",methods=["GET"])
+def postedjobs():
+    if "user_id" not in session:
+        return redirect(url_for("auth.login"))
+    user = session["user_id"]
+    query = """
+            SELECT * 
+            FROM JOBS
+            WHERE RECRUITER_ID = %s
+            """
+    values = (user,)
+    cur = conn.cursor()
+    cur.execute(query,values)
+    found = cur.fetchall()
+    if not found:
+        return render_template("postedjobs.html" , posted=None)
+    return render_template("postedjobs.html" , posted=found )
+
+@jobs.route("/accepted",methods=["GET"])
+def acceptedjobs():
+    if "user_id" not in session:
+        return redirect(url_for("auth.login"))
+    user = session["user_id"]
+    query = """
+            SELECT USERNAME , TITLE , SALARY , STATUS
+            FROM APPLICATIONS
+            JOIN JOBS
+            ON APPLICATIONS.JOB_ID = JOBS.JOB_ID
+            JOIN USERS
+            ON APPLICATIONS.CANDIDATE_ID = USERS.USER_ID
+            WHERE RECRUITER_ID = %s AND STATUS = "accepted";
+            """
+    values = (user,)
+    cur = conn.cursor()
+    cur.execute(query,values)
+    found = cur.fetchall()
+    if not found:
+        return render_template("acceptedresume.html" , posted=None)
+    return render_template("acceptedresume.html" , posted=found )
+
+@jobs.route("/rejectedresume",methods=["GET"])
+def rejectedapplicants():
+    if "user_id" not in session:
+        return redirect(url_for("auth.login"))
+    user = session["user_id"]
+    query = """
+            SELECT USERNAME , TITLE , SALARY , STATUS
+            FROM APPLICATIONS
+            JOIN JOBS
+            ON APPLICATIONS.JOB_ID = JOBS.JOB_ID
+            JOIN USERS
+            ON APPLICATIONS.CANDIDATE_ID = USERS.USER_ID
+            WHERE RECRUITER_ID = %s AND STATUS = "rejected";
+            """
+    values = (user,)
+    cur = conn.cursor()
+    cur.execute(query,values)
+    found = cur.fetchall()
+    if not found:
+        return render_template("rejectedresume.html" , posted=None)
+    return render_template("rejectedresume.html" , posted=found )
