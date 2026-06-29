@@ -13,10 +13,12 @@
     <main>
         {% if applications %}
             {% for app in applications%}
-                <p>Position : {{app[0]}}</p>
+            <div>
+                <h1>Position : {{app[0]}}</h1>
                 <p>Location : {{app[1]}}</p>
                 <p>Salary : {{app[2]}}</p>
                 <p>Status : {{app[3]}}</p>
+            </div>
                 <hr>
             {% endfor %}
         {% endif %}

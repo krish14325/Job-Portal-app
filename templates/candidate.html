@@ -19,6 +19,7 @@
     <h1>Hello {{username}}</h1>
     </header>
     <main>
+        <h1> Candidate Dashboard</h1>
         <div>
         <a href="/myapplications">
             <p> Total Application </p>
@@ -39,11 +40,12 @@
         </div>
         
         {% if job %}
+            <h1> New Opportunities </h1>
             <div>
             {% for i in job %}
                 <hr>
                 <h2>Title : {{i[2]}}</h2>
-                <p>Description : {{i[3]}}</p>
+                <h1>Description</h1> :- <p> {{i[3]}}</p>
                 <p>Location : {{i[4]}}</p>
                 <p>Salary : {{i[5]}}</p>
                 <form action="/jobdetails" method="GET">
@@ -59,7 +61,7 @@
         {% endif %}
 
         
-
+        
         <a href="/alljobs">
             <button type = "submit">
                 View jobs
